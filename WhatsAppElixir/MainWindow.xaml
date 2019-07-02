@@ -1,0 +1,124 @@
+﻿<Window x:Class="WhatsappViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:WhatsappViewer.Converters"
+        xmlns:local="clr-namespace:WhatsappViewer"
+        Icon="icon.ico"
+        Title="Whatsapp Elixir" Height="600" Width="800" Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <converters:IntTimespanToDateConverter x:Key="IntTimespanToDateConverter" />
+        <converters:HasLinkConverter x:Key="HasLinkConverter" />
+        <local:EntryToBackgroundConverter x:Key="EntryToBackgroundConverter"/>
+        <DataTemplate x:Key="EntryTemplate">
+            <TextBlock Text="{Binding .}" Background="{Binding ., Converter={StaticResource EntryToBackgroundConverter}}"/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <ToolBar Name="ToolBar1" Margin="0,0,-0.4,0" VerticalAlignment="Top" Height="30" HorizontalAlignment="Left" Width="794">
+            <Button x:Name="btnSelectDB1" Content="Open iTunes Backup " HorizontalAlignment="Left" Margin="1" VerticalAlignment="Top"  Click="ButtonSelectFile_Click"/>
+            <Button x:Name="btnSave" Content="Save " HorizontalAlignment="Left" Margin="1" VerticalAlignment="Top"  Click="save_Click"/>
+            <Button x:Name="btnExport" Content="Export " HorizontalAlignment="Left" Margin="1" VerticalAlignment="Top"  Click="export_Click" Visibility="Hidden"/>
+        </ToolBar>
+
+        <TabControl Margin="0 40 0 0">
+            <TabItem Header="Chats">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="237*"></ColumnDefinition>
+                        <ColumnDefinition Width="19*"></ColumnDefinition>
+                        <ColumnDefinition Width="532*"/>
+                    </Grid.ColumnDefinitions>
+
+
+
+                    <TextBox x:Name="txtSearch" Margin="5,5,60,0" Height="20" VerticalAlignment="Top" KeyDown="TxtSearch_KeyDown"/>
+                    <Button x:Name="btnSearch" Content="Search" HorizontalAlignment="Right" Margin="0,5,5,0" VerticalAlignment="Top"  Click="search_Click"  Width="46"/>
+
+                    <TreeView Name="TreeView1" Margin="5,30,4.8,4.6" Grid.Column="0" SelectedItemChanged="TreeView1_SelectedItemChanged">
+                        <TreeView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock FontWeight="Bold" Text="{Binding descr}"></TextBlock>
+                                    <TextBlock Text="{Binding name}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+
+                    <ListView Name="ListView1" Margin="5.2,5,5,24.6" Grid.Column="1" Grid.ColumnSpan="2">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border Margin="1px 1px 1px 0" Background = "{Binding sender, Converter={StaticResource EntryToBackgroundConverter}}" Padding="1px">
+                                    <StackPanel>
+                                        <TextBlock HorizontalAlignment="Stretch" TextWrapping="Wrap"  Text="{Binding StatusToString}">
+                                            <TextBlock.OpacityMask>
+                                                <ImageBrush/>
+                                            </TextBlock.OpacityMask>
+                                        </TextBlock>
+                                        <Image Width="400" Height="300" Stretch="Uniform" Tag="{Binding imageFileName}"  Source="{Binding imageFilePath}" Visibility="{Binding hasImage}" HorizontalAlignment="Left" MouseLeftButtonUp="Image_MouseLeftButtonUp"/>
+                                        <TextBlock FontWeight="Bold" FontSize="10" ><Run Text="{Binding sender }"></Run></TextBlock>
+                                        <TextBox Text="{Binding message, Mode=OneWay }" IsReadOnly="True" TextWrapping="Wrap" Background="Transparent" BorderThickness="0" PreviewMouseDown="TextBox_PreviewMouseDown" FontSize="14" ></TextBox>
+                                        <TextBlock Text="{Binding datetime, StringFormat='{}{0:dd/MM/yyyy hh:mm:ss tt}'}" Foreground="Gray"></TextBlock>
+                                    </StackPanel>
+
+                                </Border>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <TextBlock  FontStyle="Italic" Text="" x:Name="txtStatus"  Grid.Column="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom" Padding="0" Margin="10,5" />
+
+                </Grid>
+            </TabItem>
+            <TabItem Header="Infos">
+                <GroupBox Height="110" VerticalAlignment="Top" Name="groupBoxInfo">
+                    <GroupBox.Header>
+                        <Label>File Infos</Label>
+                    </GroupBox.Header>
+                    <Grid>
+                        <Grid.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Height" Value="20"/>
+                                <Setter Property="Width" Value="50"/>
+                                <Setter Property="VerticalAlignment" Value="Top"/>
+                                <Setter Property="HorizontalAlignment" Value="Left"/>
+                            </Style>
+                            <Style TargetType="{x:Type TextBox}">
+                                <Setter Property="Height" Value="20"/>
+                                <Setter Property="VerticalAlignment" Value="Top"/>
+                                <Setter Property="Margin">
+                                    <Setter.Value>
+                                        <Thickness Right="0" Left="60"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </Grid.Resources>
+
+                        <TextBlock Text="md5"></TextBlock>
+                        <TextBox Text="{Binding Path=md5}" ></TextBox>
+
+                        <TextBlock Text="sha1" Margin="0,28,0,0"></TextBlock>
+                        <TextBox Text="{Binding Path=sha1}" Margin="60,28,0,0" ></TextBox>
+
+                        <TextBlock Text="File size" Margin="0,55,0,0"></TextBlock>
+                        <TextBox Text="{Binding Path=size}" Margin="60,55,0,0" ></TextBox>
+
+
+                    </Grid>
+                </GroupBox>
+
+            </TabItem>
+        </TabControl>
+
+
+
+
+    </Grid>
+</Window>
