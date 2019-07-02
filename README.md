@@ -14,7 +14,7 @@ I think we all know why this project is necessary! Applications like WhatsApp an
 * A installer project added
 
 ## Disclaimer
-All credit goes to the author of [this project](https://github.com/impersoft/Securcube-Whatsapp-Viewer). For me, it was just a fast tweaking of a C# project so that I can shift from my old iPhone to a new Android!
+All credit goes to the author of [this project](https://github.com/impersoft/Securcube-Whatsapp-Viewer). For me, it was just a fast tweaking of a C# project so that I can shift from my old iPhone to a new Android! And I am doing a C# project alost after a decade!
 
 ## Links
 You will find the original project [here](https://github.com/impersoft/Securcube-Whatsapp-Viewer).
