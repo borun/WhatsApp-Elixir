@@ -13,6 +13,9 @@ I think we all know why this project is necessary! Applications like WhatsApp an
 * Everything is loading in memory for faster processing
 * A installer project added
 
+## Disclaimer
+All credit goes to the author of [this project](https://github.com/impersoft/Securcube-Whatsapp-Viewer). For me, it was just a fast tweaking of a C# project so that I can shift from my old iPhone to a new Android!
+
 ## Links
 You will find the original project [here](https://github.com/impersoft/Securcube-Whatsapp-Viewer).
 If you want to go further and implement it for Android, you may check [these](https://github.com/EliteAndroidApps?tab=repositories) projects out.
